@@ -18,13 +18,13 @@ int				my_key_funct(int keycode, t_map *map)
     exit (0);
   if (keycode == 69)
   {
-    map->zoom -= 0.1;
+    map->zoom += 1;
     ft_clean_image(map);
     fractal_mandelbrot(map);
   }
   if (keycode == 78)
   {
-    map->zoom += 0.1;
+    map->zoom -= 0.1;
     ft_clean_image(map);
     fractal_mandelbrot(map);
   }

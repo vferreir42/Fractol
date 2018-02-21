@@ -21,7 +21,7 @@
 
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
-# define ITERATION_MAX 50
+# define ITERATION_MAX 100
 
 typedef struct s_mlx
 {
@@ -38,10 +38,13 @@ typedef struct s_map
 {
   t_mlx	*mlx;
   double zoom;
+  double pos_x;
+  double pos_y;
 }               t_map;
 
 void	initialisation_minilibix(t_mlx *mlx);
 void	ft_put_pixel(t_mlx *mlx, int x, int y, int couleur);
 void	ft_clean_image(t_map *map);
 int		my_key_funct(int keycode, t_map *map);
+int 	my_mouse_funct(int keycode, int pos_x, int pos_y, t_map *map);
 void fractal_mandelbrot(t_map *map);

@@ -14,7 +14,9 @@ NAME	=	./fractol
 
 SRCS	=	./main.c		\
 				./mlx.c			\
-				key_fonction.c
+				./fractal_mandelbrot.c	\
+				./key_fonction.c	\
+				./mouse_fonction.c
 
 OBJS	=	$(SRCS:.c=.o)
 

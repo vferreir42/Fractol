@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mouse_fonction.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vferreir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/20 11:01:52 by vferreir          #+#    #+#             */
-/*   Updated: 2018/02/21 15:34:12 by vferreir         ###   ########.fr       */
+/*   Created: 2018/02/21 17:54:41 by vferreir          #+#    #+#             */
+/*   Updated: 2018/02/21 17:54:43 by vferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int main(void)
+int 	my_mouse_funct(int keycode, int pos_x, int pos_y, t_map *map)
 {
-	t_map map;
-
-	if (!(map.mlx = malloc(sizeof(t_mlx))))
-		return (0);
-	initialisation_minilibix(map.mlx);
-  map.zoom = 1;
-  map.pos_x = 0;
-
-
-
-  fractal_mandelbrot(&map);
-
-
-
-  mlx_mouse_hook(map.mlx->windows, &my_mouse_funct, &map);
-
-	mlx_key_hook(map.mlx->windows, &my_key_funct, &map);
-	mlx_loop(map.mlx->mlx);
-	free(map.mlx);
-	return (0);
+  if (keycode == 1)
+  {
+    map->pos_x = (2.7 * pos_x / SCREEN_WIDTH - 2.1 + 0.75) + map->pos_x;
+    map->pos_y = (2.4 * pos_y / SCREEN_HEIGHT - 1.2) + map->pos_y;
+    ft_clean_image(map);
+    fractal_mandelbrot(map);
+  }
+  return (0);
 }
