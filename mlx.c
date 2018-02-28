@@ -15,7 +15,7 @@
 void	ft_clean_image(t_map *map)
 {
 	free(map->mlx->data);
-	map->mlx->image = mlx_new_image(map->mlx->mlx, 1920, 1080);
+	map->mlx->image = mlx_new_image(map->mlx->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	map->mlx->data = mlx_get_data_addr(map->mlx->image,
 			&map->mlx->bpp, &map->mlx->size_line, &map->mlx->endian);
 }
@@ -38,8 +38,15 @@ void	ft_put_pixel(t_mlx *mlx, int x, int y, int couleur)
 
 void	initialisation_minilibix(t_mlx *mlx)
 {
+	int x;
+	int y;
+
   mlx->mlx = mlx_init();
   mlx->windows = mlx_new_window(mlx->mlx, 1920, 1080, "mlx_42");
 	mlx->image = mlx_new_image(mlx->mlx, 1920, 1080);
+	mlx->image_menu = mlx_new_image(mlx->mlx, 400, 1080);
+	x = 256;
+	y = 256;
+	mlx->image_menu = mlx_xpm_file_to_image(mlx->mlx, "./menu", &x, &y);
 	mlx->data = mlx_get_data_addr(mlx->image, &mlx->bpp, &mlx->size_line, &mlx->endian);
 }

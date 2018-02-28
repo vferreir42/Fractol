@@ -15,6 +15,8 @@ NAME	=	./fractol
 SRCS	=	./main.c		\
 				./mlx.c			\
 				./fractal_mandelbrot.c	\
+				./fractal_julie.c	\
+				./fractal_newton.c	\
 				./key_fonction.c	\
 				./mouse_fonction.c
 

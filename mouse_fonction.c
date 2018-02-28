@@ -14,12 +14,30 @@
 
 int 	my_mouse_funct(int keycode, int pos_x, int pos_y, t_map *map)
 {
-  if (keycode == 1)
+  if (keycode == BUT1_KEY)
   {
-    map->pos_x = (2.7 * pos_x / SCREEN_WIDTH - 2.1 + 0.75) + map->pos_x;
-    map->pos_y = (2.4 * pos_y / SCREEN_HEIGHT - 1.2) + map->pos_y;
-    ft_clean_image(map);
-    fractal_mandelbrot(map);
+    if (pos_x > 1520 && pos_y >= 243 && pos_y <= 540)
+    {
+      set_value(map);
+      map->mandelbrot = 1;
+      fractal_mandelbrot(map);
+    }
+    else if (pos_x > 1520 && pos_y >= 547 && pos_y <= 812)
+    {
+      set_value(map);
+      map->julia = 1;
+      fractal_julia(map);
+    }
+    else
+    {
+      map->pos_x = (2.7 / map->zoom * pos_x / SCREEN_WIDTH - 1.35 / map->zoom) + map->pos_x;
+      map->pos_y = (2.4 / map->zoom * pos_y / SCREEN_HEIGHT - 1.2 / map->zoom) + map->pos_y;
+      ft_clean_image(map);
+      if (map->mandelbrot == 1)
+        fractal_mandelbrot(map);
+      else if (map->julia == 1)
+        fractal_julia(map);
+      }
   }
   return (0);
 }
