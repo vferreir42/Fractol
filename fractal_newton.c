@@ -6,7 +6,7 @@
 /*   By: vferreir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 17:39:33 by vferreir          #+#    #+#             */
-/*   Updated: 2018/02/26 17:39:34 by vferreir         ###   ########.fr       */
+/*   Updated: 2018/03/02 20:38:01 by vferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		magie_noir(double x, double y)
 	double tmp = 0;
 	double	dd;
 
-	while (i < ITERATION_MAX)
+	while (i < ITERATION_MAX / 2)
 	{
 		z_r = x * x;
 		z_i = y * y;
@@ -52,24 +52,23 @@ void fractal_newton(t_map *map)
 	int  y;
 	int i;
 
-  y = -1;
+	y = -1;
 	while (++y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
-    {
+		{
 			i = magie_noir((2.7 / map->zoom) * x / SCREEN_WIDTH - (1.35 / map->zoom) + map->pos_x,
-              ((2.4 / map->zoom) * y / SCREEN_HEIGHT - (1.2 / map->zoom) + map->pos_y));
+					((2.4 / map->zoom) * y / SCREEN_HEIGHT - (1.2 / map->zoom) + map->pos_y));
 			if (i == 1)
-      	ft_put_pixel(map->mlx, x, y, 0xB9121B);
+				ft_put_pixel(map->mlx, x, y, 0xB9121B);
 			if (i == 2)
 				ft_put_pixel(map->mlx, x, y, 0xADCF4F);
 			if (i == 3)
 				ft_put_pixel(map->mlx, x, y, 0x01B0F0);
 		}
 	}
-  add_cross(map);
+	add_cross(map);
 	mlx_put_image_to_window(map->mlx->mlx, map->mlx->windows, map->mlx->image, 0, 0);
-  mlx_put_image_to_window(map->mlx->mlx, map->mlx->windows, map->mlx->image_menu, 1520, 0);
-  printf_info(map);
+	printf_info(map);
 }

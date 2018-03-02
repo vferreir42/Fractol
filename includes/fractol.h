@@ -17,12 +17,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
+# include <pthread.h>
 
 # include <stdio.h>
 
-# define SCREEN_WIDTH 1520
-# define SCREEN_HEIGHT 1080
-# define ITERATION_MAX 50
+# define SCREEN_WIDTH 980
+# define SCREEN_HEIGHT 720
+# define ITERATION_MAX 100
 
 typedef struct s_mlx
 {
@@ -42,13 +43,19 @@ typedef struct s_map
 	t_mlx	  *mlx;
 	int     mandelbrot;
 	int     julia;
-  int newton;
+	double julia_cr;
+	double julia_ci;
+  int 	newton;
+	int lock;
+	int affichage_zoom;
 	double  zoom;
 	double  pos_x;
 	double  pos_y;
   int     key_hook[300];
 }               t_map;
 
+void fractal_select(t_map *map);
+int  motion_hook(int x, int y, t_map *map);
 void	initialisation_minilibix(t_mlx *mlx);
 void  set_value(t_map *map);
 void	ft_put_pixel(t_mlx *mlx, int x, int y, int couleur);
