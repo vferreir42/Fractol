@@ -6,7 +6,7 @@
 /*   By: vferreir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 11:52:43 by vferreir          #+#    #+#             */
-/*   Updated: 2018/03/02 20:38:27 by vferreir         ###   ########.fr       */
+/*   Updated: 2018/03/04 20:29:34 by vferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ void	initialisation_minilibix(t_mlx *mlx)
 	mlx->mlx = mlx_init();
 	mlx->windows = mlx_new_window(mlx->mlx, 1280, 720, "mlx_42");
 	mlx->image = mlx_new_image(mlx->mlx, 980, 720);
-	mlx->data = mlx_get_data_addr(mlx->image, &mlx->bpp, &mlx->size_line, &mlx->endian);
+	mlx->data =
+		mlx_get_data_addr(mlx->image, &mlx->bpp, &mlx->size_line, &mlx->endian);
 	mlx->image_menu = mlx_new_image(mlx->mlx, 400, 1080);
 	x = 300;
 	y = 720;
-	mlx->image_menu = mlx_xpm_file_to_image(mlx->mlx, "./img/menu-lock.xpm", &x, &y);
+	mlx->image_menu =
+		mlx_xpm_file_to_image(mlx->mlx, "./img/menu-lock.xpm", &x, &y);
 	mlx_put_image_to_window(mlx->mlx, mlx->windows, mlx->image_menu, 980, 0);
 }

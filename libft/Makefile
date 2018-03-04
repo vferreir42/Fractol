@@ -84,15 +84,17 @@ OBJ		= $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME)	:
-	$(CC) $(CFLAGS) -c $(SRC) -I includes/
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@$(CC) $(CFLAGS) -c $(SRC) -I includes/
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "\033[32mLIBFT COMPILATING DONE\033[0m"
 
 clean:
-	/bin/rm -f $(OBJ)
+	@/bin/rm -f $(OBJ)
 
 fclean:	clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo "\033[31mLIBFT CLEANING DONE"
 
 re: fclean all
 

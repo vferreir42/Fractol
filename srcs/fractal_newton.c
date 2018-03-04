@@ -6,22 +6,24 @@
 /*   By: vferreir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/26 17:39:33 by vferreir          #+#    #+#             */
-/*   Updated: 2018/03/02 20:38:01 by vferreir         ###   ########.fr       */
+/*   Updated: 2018/03/04 20:28:13 by vferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-
-
-static int		magie_noir(double x, double y)
+static int	magie_noir(double x, double y)
 {
-	int i = 0;
-	double z_r = 0;
-	double z_i = 0;
-	double tmp = 0;
+	int		i;
+	double	z_r;
+	double	z_i;
+	double	tmp;
 	double	dd;
 
+	i = 0;
+	z_r = 0;
+	z_i = 0;
+	tmp = 0;
 	while (i < ITERATION_MAX / 2)
 	{
 		z_r = x * x;
@@ -43,14 +45,14 @@ static int		magie_noir(double x, double y)
 		if (y >= -0.87 && y <= -0.86)
 			return (3);
 	}
-	return 0;
+	return (0);
 }
 
-void fractal_newton(t_map *map)
+void		fractal_newton(t_map *map)
 {
-	int  x;
-	int  y;
-	int i;
+	int	x;
+	int	y;
+	int	i;
 
 	y = -1;
 	while (++y < SCREEN_HEIGHT)
@@ -58,8 +60,10 @@ void fractal_newton(t_map *map)
 		x = -1;
 		while (++x < SCREEN_WIDTH)
 		{
-			i = magie_noir((2.7 / map->zoom) * x / SCREEN_WIDTH - (1.35 / map->zoom) + map->pos_x,
-					((2.4 / map->zoom) * y / SCREEN_HEIGHT - (1.2 / map->zoom) + map->pos_y));
+			i = magie_noir((2.7 / map->zoom) * x / SCREEN_WIDTH
+					- 1.35 / map->zoom + map->pos_x,
+				(2.4 / map->zoom) * y / SCREEN_HEIGHT
+				- 1.2 / map->zoom + map->pos_y);
 			if (i == 1)
 				ft_put_pixel(map->mlx, x, y, 0xB9121B);
 			if (i == 2)
@@ -69,6 +73,7 @@ void fractal_newton(t_map *map)
 		}
 	}
 	add_cross(map);
-	mlx_put_image_to_window(map->mlx->mlx, map->mlx->windows, map->mlx->image, 0, 0);
+	mlx_put_image_to_window(map->mlx->mlx, map->mlx->windows,
+		map->mlx->image, 0, 0);
 	printf_info(map);
 }

@@ -6,15 +6,17 @@
 /*   By: vferreir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 20:35:02 by vferreir          #+#    #+#             */
-/*   Updated: 2018/03/02 20:38:42 by vferreir         ###   ########.fr       */
+/*   Updated: 2018/03/04 20:30:07 by vferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void set_value(t_map *map)
+void	set_value(t_map *map)
 {
-	int i = -1;
+	int i;
+
+	i = -1;
 	while (++i < 300)
 		map->key_hook[i] = 0;
 	map->zoom = 1;
@@ -23,12 +25,12 @@ void set_value(t_map *map)
 	map->mandelbrot = 0;
 	map->julia = 0;
 	map->julia_cr = -0.88;
+	map->julia_ci = 0.22;
 	map->newton = 0;
-	map->lock = 1;
 	map->affichage_zoom = 1;
 }
 
-void fractal_select(t_map *map)
+void	fractal_select(t_map *map)
 {
 	ft_clean_image(map);
 	if (map->mandelbrot == 1)
@@ -39,7 +41,7 @@ void fractal_select(t_map *map)
 		fractal_newton(map);
 }
 
-void printf_info(t_map *map)
+void	printf_info(t_map *map)
 {
 	char *string;
 	char *tmp;
@@ -64,7 +66,7 @@ void printf_info(t_map *map)
 	free(string);
 }
 
-void add_cross(t_map *map)
+void	add_cross(t_map *map)
 {
 	int i;
 

@@ -10,11 +10,13 @@ CFLAGS+=-O2
 all: $(NOM)
 
 $(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+	@ar -r $(NOM) $(OBJ)
+	@ranlib $(NOM)
+	@echo "\033[31mMINILIBX COMPILATING DONE"
 
 clean:
-	rm -f $(NOM) $(OBJ) *~
-	rm -f mlx_app
+	@rm -f $(NOM) $(OBJ) *~
+	@rm -f mlx_app
+	@echo "\033[31mMINILIBX CLEANING DONE"
 
 re: clean all
