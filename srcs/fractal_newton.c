@@ -12,39 +12,30 @@
 
 #include "fractol.h"
 
-static int	magie_noir(double x, double y)
+static int	magie_noir(double x, double y, int i)
 {
-	int		i;
 	double	z_r;
 	double	z_i;
 	double	tmp;
-	double	dd;
+	double	diviseur;
 
-	i = 0;
-	z_r = 0;
-	z_i = 0;
-	tmp = 0;
-	while (i < ITERATION_MAX / 2)
+	while (++i < ITERATION_MAX / 2)
 	{
 		z_r = x * x;
 		z_i = y * y;
-		dd = 3.0 * ((z_r - z_i) * (z_r - z_i) + 4.0 * z_r * z_i);
-		if (dd == 0.0)
-			dd = 0.000001;
+		diviseur = 3.0 * ((z_r - z_i) * (z_r - z_i) + 4.0 * z_r * z_i);
+		if (diviseur == 0.0)
+			diviseur = 0.000001;
 		tmp = x;
-		x = (2.0 / 3.0) * x + (z_r - z_i) / dd;
-		y = (2.0 / 3.0) * y - 2.0 * tmp * y / dd;
-		i++;
+		x = (2.0 / 3.0) * x + (z_r - z_i) / diviseur;
+		y = (2.0 / 3.0) * y - 2.0 * tmp * y / diviseur;
 	}
 	if (x == 1)
 		return (1);
-	if (x >= -0.51 && x <= -0.49)
-	{
-		if (y >= 0.86 && y <= 0.87)
-			return (2);
-		if (y >= -0.87 && y <= -0.86)
-			return (3);
-	}
+	if (x >= -0.51 && x <= -0.49 && y >= 0.86 && y <= 0.87)
+		return (2);
+	if (x >= -0.51 && x <= -0.49 && y >= -0.87 && y <= -0.86)
+		return (3);
 	return (0);
 }
 
@@ -60,15 +51,14 @@ void		fractal_newton(t_map *map)
 		x = -1;
 		while (++x < SCREEN_WIDTH)
 		{
-			i = magie_noir((2.7 / map->zoom) * x / SCREEN_WIDTH
-					- 1.35 / map->zoom + map->pos_x,
-				(2.4 / map->zoom) * y / SCREEN_HEIGHT
-				- 1.2 / map->zoom + map->pos_y);
+			i = magie_noir(2.7 / map->zoom * x / SCREEN_WIDTH - 1.35 / map->zoom
+			+ map->pos_x, 2.4 / map->zoom * y / SCREEN_HEIGHT
+			- 1.2 / map->zoom + map->pos_y, 1);
 			if (i == 1)
 				ft_put_pixel(map->mlx, x, y, 0xB9121B);
-			if (i == 2)
+			else if (i == 2)
 				ft_put_pixel(map->mlx, x, y, 0xADCF4F);
-			if (i == 3)
+			else if (i == 3)
 				ft_put_pixel(map->mlx, x, y, 0x01B0F0);
 		}
 	}

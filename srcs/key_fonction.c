@@ -6,13 +6,13 @@
 /*   By: vferreir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 14:51:12 by vferreir          #+#    #+#             */
-/*   Updated: 2018/03/04 20:31:54 by vferreir         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:39:50 by vferreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	fct_key(int keycode, t_map *map)
+int			fct_key(int keycode, t_map *map)
 {
 	if (keycode == ZOOM)
 		map->key_hook[keycode] = 1;
@@ -29,7 +29,7 @@ int	fct_key(int keycode, t_map *map)
 	return (0);
 }
 
-int	do_change(t_map *map)
+int			do_change(t_map *map)
 {
 	if (map->key_hook[ZOOM] == 1)
 	{
@@ -53,31 +53,38 @@ int	do_change(t_map *map)
 	return (0);
 }
 
-int	my_key_funct(int keycode, t_map *map)
+static void	part_fonction(t_map *map)
 {
 	int x;
 	int y;
 
 	x = 300;
 	y = 720;
+	if (map->lock == 0)
+	{
+		map->mlx->image_menu = mlx_xpm_file_to_image(map->mlx->mlx,
+				"./img/menu-lock.xpm", &x, &y);
+		map->lock = 1;
+	}
+	else
+	{
+		map->mlx->image_menu = mlx_xpm_file_to_image(map->mlx->mlx,
+				"./img/menu.xpm", &x, &y);
+		map->lock = 0;
+	}
+	mlx_put_image_to_window(map->mlx->mlx, map->mlx->windows,
+			map->mlx->image_menu, 980, 0);
+}
+
+int			my_key_funct(int keycode, t_map *map)
+{
 	if (keycode == ESC_KEY)
 		exit(0);
 	if (keycode == L_KEY)
-	{
-		if (map->lock == 0)
-		{
-			map->mlx->image_menu = mlx_xpm_file_to_image(map->mlx->mlx, "./img/menu-lock.xpm", &x, &y);
-			map->lock = 1;
-		}
-		else
-		{
-			map->mlx->image_menu = mlx_xpm_file_to_image(map->mlx->mlx, "./img/menu.xpm", &x, &y);
-			map->lock = 0;
-		}
-		mlx_put_image_to_window(map->mlx->mlx, map->mlx->windows, map->mlx->image_menu, 980, 0);
-	}
+		part_fonction(map);
 	if (keycode == ZOOM || keycode == DEZOOM || keycode == UP_KEY
-		|| keycode == DOWN_KEY || keycode == LEFT_KEY || keycode == RIGHT_KEY)
+			|| keycode == DOWN_KEY || keycode == LEFT_KEY
+			|| keycode == RIGHT_KEY)
 		map->key_hook[keycode] = 0;
 	return (0);
 }
